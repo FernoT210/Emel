@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emel ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    text-align: center;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    overflow: hidden;
+}
+
+.container { padding: 20px; }
+
+input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.yes { background: #00ff99; }
+.no { background: #ff4b5c; color: white; }
+
+img {
+    width: 250px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+.hidden { display: none; }
+
+#slider img { display: none; }
+#slider img.active { display: block; }
+
+/* kalp animasyonu */
+.heart {
+    position: absolute;
+    color: red;
+    animation: fall 5s linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(100vh); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💌 Emel için...</h1>
+<h2 id="countdown"></h2>
+
+<input type="text" id="name" placeholder="Adını yaz...">
+<br>
+<button onclick="checkName()">Gönder</button>
+
+<div id="content" class="hidden">
+
+<div id="slider">
+    <img src="foto1.jpg" class="active">
+    <img src="foto2.jpg">
+</div>
+
+<p>
+Güzelim benim ben senden çok özür dilerim tüm yaptıklarım için seni üzdüğüm için ve üzüp herşeyi mahvettiğim için senden çok özür dilerim seni çok seviyorum affet beni ❤️
+</p>
+
+<h3>Beni affediyor musun?</h3>
+
+<button class="yes" onclick="accept()">Evet ❤️</button>
+<button class="no" onclick="moveButton(this)">Hayır 😢</button>
+
+<br><br>
+
+<button onclick="goWhatsApp()">Bana Yaz 💬</button>
+
+</div>
+
+<!-- MÜZİK -->
+<iframe id="music" width="0" height="0"
+src="https://www.youtube.com/embed/0put0_a--Ng?enablejsapi=1&loop=1&playlist=0put0_a--Ng">
+</iframe>
+
+</div>
+
+<script>
+
+// isim kontrol + müzik başlat
+function checkName(){
+    let name = document.getElementById("name").value.toLowerCase();
+
+    if(name === "emel"){
+        document.getElementById("content").classList.remove("hidden");
+
+        // müzik başlat
+        document.getElementById("music").src += "&autoplay=1";
+
+        startHearts();
+    } else {
+        alert("Sadece Emel girebilir ❤️");
+    }
+}
+
+// slider
+let index = 0;
+setInterval(()=>{
+    let imgs = document.querySelectorAll("#slider img");
+    imgs[index].classList.remove("active");
+    index = (index + 1) % imgs.length;
+    imgs[index].classList.add("active");
+}, 3000);
+
+// hayır kaçıyor 😄
+function moveButton(btn){
+    btn.style.position = "absolute";
+    btn.style.top = Math.random()*80 + "%";
+    btn.style.left = Math.random()*80 + "%";
+}
+
+// evet
+function accept(){
+    alert("Seni çok seviyorum ❤️");
+}
+
+// whatsapp
+function goWhatsApp(){
+    window.location.href = "https://wa.me/905415513974?text=Beni affettim ❤️";
+}
+
+// geri sayım
+let time = 120;
+setInterval(()=>{
+    let min = Math.floor(time/60);
+    let sec = time%60;
+    document.getElementById("countdown").innerText =
+        "Sürpriz açılıyor: " + min + ":" + (sec<10?"0":"") + sec;
+    time--;
+},1000);
+
+// kalp efekti
+function startHearts(){
+    setInterval(()=>{
+        let heart = document.createElement("div");
+        heart.innerHTML = "❤️";
+        heart.className = "heart";
+        heart.style.left = Math.random()*100 + "%";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),5000);
+    },300);
+}
+
+</script>
+
+</body>
+</html>
